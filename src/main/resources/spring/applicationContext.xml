@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context               http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/aop                   http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+        http://www.springframework.org/schema/mvc                   http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+        http://www.springframework.org/schema/tx                    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+    
+    <!-- <aop:aspectj-autoproxy></aop:aspectj-autoproxy> -->
+    
+    <context:component-scan base-package="com.yali.design.service" />
+    <context:component-scan base-package="com.yali.design.mapper" />
+
+    <bean id="propertyConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath*:properties/postgres-jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${postgresql.jdbc.driver}" />        
+        <property name="url" value="${postgresql.jdbc.url}" /> 
+        <property name="username" value="${postgresql.jdbc.username}" />         
+        <property name="password" value="${postgresql.jdbc.password}" />         
+        
+        <property name="initialSize" value="${postgresql.initialSize}"></property>  
+        <property name="maxActive" value="${postgresql.maxActive}"></property>
+        <property name="minIdle" value="${postgresql.minIdle}"></property>  
+        <property name="maxIdle" value="${postgresql.maxIdle}"></property>  
+        <property name="maxWait" value="${postgresql.maxWait}"></property>    
+        
+        <property name="removeAbandoned" value="true"></property>
+        <property name="removeAbandonedTimeout" value="${postgresql.removeAbandonedTimeout}"></property>
+        
+        <property name="testWhileIdle" value="true"></property>
+        <property name="validationQuery" value="${postgresql.validationQuery}"></property>
+    </bean>
+
+     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" > 
+        <property name="mapperLocations"> <!--ibatis2中这个地方是confLocations，特别注意 -->
+            <list>
+                <value>classpath*:mybatis/*.xml</value>
+                <value>classpath*:mybatis/**/*.xml</value>
+            </list> 
+        </property>
+        <property name="typeAliasesPackage" value="com.yali.design.dto" />
+        <property name="dataSource" ref="dataSource" />
+     </bean>
+     
+     <bean class = "org.mybatis.spring.mapper.MapperScannerConfigurer" > 
+          <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+          <property name="basePackage" value="com.yali.design.mapper"></property>
+     </bean>
+</beans>

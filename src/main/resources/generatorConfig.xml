@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <!-- 驱动程序 -->
+    <classPathEntry location="/opt/tools/postgresql-9.1-901.jdbc4.jar" />
+
+    <context id="context1" targetRuntime="MyBatis3" defaultModelType="conditional">
+
+        <!-- 是否取消注释 -->
+        <property name="suppressAllComments" value="true" />
+
+        <property name="targetPackage" value="mybatis.gen" />
+        <property name="targetProject" value="b2g-rdms/src/main/resources" />
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+        <!-- 数据库链接 -->
+        <jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://192.168.161.132:5432/postgres" userId="b2g" password="b2g_dev" />
+
+        <!-- java entity生成位置 -->
+        <javaModelGenerator targetPackage="com.yali.design.mapper.gen.entity" targetProject="GraduationDesign/src/main/java">
+            <property name="enableSubPackages" value="false" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- mapper配置文件生成位置 -->
+        <sqlMapGenerator targetPackage="mybatis.gen" targetProject="GraduationDesign/src/main/resources">
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+
+        <!-- mapper生成位置 -->
+        <javaClientGenerator targetPackage="com.yali.design.mapper.gen" targetProject="GraduationDesign/src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+
+        <!-- 表以及关系配置 -->
+		<table tableName="t_id_user" schema="b2g" delimitIdentifiers="true"></table>
+    </context>
+</generatorConfiguration>
