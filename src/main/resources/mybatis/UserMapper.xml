@@ -4,4 +4,35 @@
 	<select id="countAll" resultType="int">
         select count(*) from b2g.t_id_user
 	</select>
+<!-- 迭代的另一种写法 -->
+    <insert id="batchInsertBrandgoodsShop" parameterClass="map">
+        INSERT INTO
+        DP_ShoppingBrandGoods(Cover,Title,DescriptionTitle,DescriptionDetail,AddTime,UpdateTime,BrandID,Extra,SeasonLevel,Price)
+        VALUES
+        <iterate property="goodsList" conjunction=",">
+            <![CDATA[
+            (
+            #goodsList[].cover#,
+            #goodsList[].title#,
+            #goodsList[].descriptionTitle#,
+            #goodsList[].descriptionDetail#,
+            NOW(),
+            NOW(),
+            #goodsList[].brandId#,
+            #goodsList[].extra#,
+            #goodsList[].seasonLevel#,
+            #goodsList[].price#
+            )
+           ]]>
+        </iterate>
+    </insert>
+    <delete id="deleteDuplicateData" parameterClass="map">
+        DELETE FROM
+        DP_ShoppingBrandGoods
+        WHERE GoodsID IN
+        <iterate property="goodsIds" open="(" conjunction="," close=")">
+            #goodsIds[]#
+        </iterate>
+    </delete>
+
 </mapper>
