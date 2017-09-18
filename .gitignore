@@ -8,3 +8,8 @@ target/
 classes/
 *~
 ~*
+
+.idea/
+*.iml
+build/
+.DS_Store

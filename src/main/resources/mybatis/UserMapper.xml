@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yali.design.mapper.UserMapper" >
+<mapper namespace="name.wills.demo.mapper.UserMapper" >
 	<select id="countAll" resultType="int">
-        select count(*) from b2g.t_id_user
+        select count(*) from PUBLIC.T_ID_USER
 	</select>
 <!-- 迭代的另一种写法 -->
-    <insert id="batchInsertBrandgoodsShop" parameterClass="map">
+    <insert id="batchInsertBrandgoodsShop" parameterType="map">
         INSERT INTO
         DP_ShoppingBrandGoods(Cover,Title,DescriptionTitle,DescriptionDetail,AddTime,UpdateTime,BrandID,Extra,SeasonLevel,Price)
         VALUES
-        <iterate property="goodsList" conjunction=",">
+        <foreach collection="goodsList" separator=",">
             <![CDATA[
             (
             #goodsList[].cover#,
@@ -24,15 +24,15 @@
             #goodsList[].price#
             )
            ]]>
-        </iterate>
+        </foreach>
     </insert>
-    <delete id="deleteDuplicateData" parameterClass="map">
+    <delete id="deleteDuplicateData" parameterType="map">
         DELETE FROM
         DP_ShoppingBrandGoods
         WHERE GoodsID IN
-        <iterate property="goodsIds" open="(" conjunction="," close=")">
+        <foreach collection="goodsIds" open="(" separator="," close=")">
             #goodsIds[]#
-        </iterate>
+        </foreach>
     </delete>
 
 </mapper>

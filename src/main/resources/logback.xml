@@ -3,14 +3,14 @@
 
 <configuration>
 
-	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
-		<encoder charset="UTF-8">
-			<Pattern>%d{yyyy-MM-dd|HH:mm:ss} [-%-5level-] [%thread] %logger -> %msg %n%ex</Pattern>
-		</encoder>
-	</appender>
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="UTF-8">
+            <Pattern>%d{yyyy-MM-dd|HH:mm:ss} [-%-5level-] [%thread] %logger -> %msg %n%ex</Pattern>
+        </encoder>
+    </appender>
 
-	<root level="INFO">
-		<appender-ref ref="stdout" />
-	</root>
+    <root level="DEBUG">
+        <appender-ref ref="stdout"/>
+    </root>
 
 </configuration>

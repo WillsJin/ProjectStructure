@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="name.wills.demo.mapper.defaults.TIdUserMapper" >
+  <resultMap id="BaseResultMap" type="name.wills.demo.mapper.defaults.entity.TIdUser" >
+    <id column="USER_ID" property="userId" jdbcType="INTEGER" />
+    <result column="USER_KEY" property="userKey" jdbcType="VARCHAR" />
+    <result column="GROUP_ID" property="groupId" jdbcType="INTEGER" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_TYPE" property="userType" jdbcType="INTEGER" />
+    <result column="LAST_NAME" property="lastName" jdbcType="VARCHAR" />
+    <result column="FIRST_NAME" property="firstName" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="MOBILE_PHONE" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="OFFICE_PHONE" property="officePhone" jdbcType="VARCHAR" />
+    <result column="OFFICE_ADDRESS" property="officeAddress" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    USER_ID, USER_KEY, GROUP_ID, USER_NAME, USER_TYPE, LAST_NAME, FIRST_NAME, BIRTHDAY, 
+    EMAIL, MOBILE_PHONE, OFFICE_PHONE, OFFICE_ADDRESS, UPDATE_TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="name.wills.demo.mapper.defaults.entity.TIdUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from "PUBLIC"."T_ID_USER"
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from "PUBLIC"."T_ID_USER"
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from "PUBLIC"."T_ID_USER"
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="name.wills.demo.mapper.defaults.entity.TIdUserExample" >
+    delete from "PUBLIC"."T_ID_USER"
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="name.wills.demo.mapper.defaults.entity.TIdUser" >
+    insert into "PUBLIC"."T_ID_USER" (USER_ID, USER_KEY, GROUP_ID, 
+      USER_NAME, USER_TYPE, LAST_NAME, 
+      FIRST_NAME, BIRTHDAY, EMAIL, 
+      MOBILE_PHONE, OFFICE_PHONE, OFFICE_ADDRESS, 
+      UPDATE_TIME)
+    values (#{userId,jdbcType=INTEGER}, #{userKey,jdbcType=VARCHAR}, #{groupId,jdbcType=INTEGER}, 
+      #{userName,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER}, #{lastName,jdbcType=VARCHAR}, 
+      #{firstName,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{mobilePhone,jdbcType=VARCHAR}, #{officePhone,jdbcType=VARCHAR}, #{officeAddress,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="name.wills.demo.mapper.defaults.entity.TIdUser" >
+    insert into "PUBLIC"."T_ID_USER"
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userKey != null" >
+        USER_KEY,
+      </if>
+      <if test="groupId != null" >
+        GROUP_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userType != null" >
+        USER_TYPE,
+      </if>
+      <if test="lastName != null" >
+        LAST_NAME,
+      </if>
+      <if test="firstName != null" >
+        FIRST_NAME,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE,
+      </if>
+      <if test="officePhone != null" >
+        OFFICE_PHONE,
+      </if>
+      <if test="officeAddress != null" >
+        OFFICE_ADDRESS,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userKey != null" >
+        #{userKey,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="lastName != null" >
+        #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="firstName != null" >
+        #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="officePhone != null" >
+        #{officePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddress != null" >
+        #{officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="name.wills.demo.mapper.defaults.entity.TIdUserExample" resultType="java.lang.Integer" >
+    select count(*) from "PUBLIC"."T_ID_USER"
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update "PUBLIC"."T_ID_USER"
+    <set >
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userKey != null" >
+        USER_KEY = #{record.userKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupId != null" >
+        GROUP_ID = #{record.groupId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null" >
+        USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userType != null" >
+        USER_TYPE = #{record.userType,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastName != null" >
+        LAST_NAME = #{record.lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstName != null" >
+        FIRST_NAME = #{record.firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null" >
+        BIRTHDAY = #{record.birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilePhone != null" >
+        MOBILE_PHONE = #{record.mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officePhone != null" >
+        OFFICE_PHONE = #{record.officePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officeAddress != null" >
+        OFFICE_ADDRESS = #{record.officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update "PUBLIC"."T_ID_USER"
+    set USER_ID = #{record.userId,jdbcType=INTEGER},
+      USER_KEY = #{record.userKey,jdbcType=VARCHAR},
+      GROUP_ID = #{record.groupId,jdbcType=INTEGER},
+      USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      USER_TYPE = #{record.userType,jdbcType=INTEGER},
+      LAST_NAME = #{record.lastName,jdbcType=VARCHAR},
+      FIRST_NAME = #{record.firstName,jdbcType=VARCHAR},
+      BIRTHDAY = #{record.birthday,jdbcType=VARCHAR},
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      MOBILE_PHONE = #{record.mobilePhone,jdbcType=VARCHAR},
+      OFFICE_PHONE = #{record.officePhone,jdbcType=VARCHAR},
+      OFFICE_ADDRESS = #{record.officeAddress,jdbcType=VARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="name.wills.demo.mapper.defaults.entity.TIdUser" >
+    update "PUBLIC"."T_ID_USER"
+    <set >
+      <if test="userKey != null" >
+        USER_KEY = #{userKey,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null" >
+        GROUP_ID = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        USER_TYPE = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="lastName != null" >
+        LAST_NAME = #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="firstName != null" >
+        FIRST_NAME = #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="officePhone != null" >
+        OFFICE_PHONE = #{officePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddress != null" >
+        OFFICE_ADDRESS = #{officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="name.wills.demo.mapper.defaults.entity.TIdUser" >
+    update "PUBLIC"."T_ID_USER"
+    set USER_KEY = #{userKey,jdbcType=VARCHAR},
+      GROUP_ID = #{groupId,jdbcType=INTEGER},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_TYPE = #{userType,jdbcType=INTEGER},
+      LAST_NAME = #{lastName,jdbcType=VARCHAR},
+      FIRST_NAME = #{firstName,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      MOBILE_PHONE = #{mobilePhone,jdbcType=VARCHAR},
+      OFFICE_PHONE = #{officePhone,jdbcType=VARCHAR},
+      OFFICE_ADDRESS = #{officeAddress,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>
